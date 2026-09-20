@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    h1 { margin: 20px; }
+    form {
+      margin: 20px;
+    }
+    input {
+      padding: 10px;
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+    #weatherResult {
+      margin-top: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: inline-block;
+      padding: 20px;
+      min-width: 250px;
+    }
+    .card img {
+      width: 80px;
+      height: 80px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather App</h1>
+  <form id="weatherForm">
+    <input type="text" id="cityInput" placeholder="Enter city name">
+    <button type="submit">Get Weather</button>
+  </form>
+  <div id="weatherResult"></div>
+
+  <script>
+    const form = document.getElementById("weatherForm");
+    const cityInput = document.getElementById("cityInput");
+    const weatherResult = document.getElementById("weatherResult");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const city = cityInput.value.trim();
+      if (!city) {
+        weatherResult.innerHTML = "<p style='color:red;'>Please enter a city name</p>";
+        return;
+      }
+
+      weatherResult.innerHTML = "<p>Fetching data, please wait...</p>";
+
+      try {
+        const apiKey = "YOUR_API_KEY"; // Replace with your OpenWeatherMap API key
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.cod !== 200) {
+          weatherResult.innerHTML = `<p style='color:red;'>City not found!</p>`;
+          return;
+        }
+
+        const { name } = data;
+        const { temp, humidity } = data.main;
+        const { main, icon } = data.weather[0];
+        const { speed } = data.wind;
+
+        weatherResult.innerHTML = `
+          <div class="card">
+            <h2>${name}</h2>
+            <p>Temperature: ${temp} °C</p>
+            <p>Condition: ${main}</p>
+            <p>Humidity: ${humidity}%</p>
+            <p>Wind Speed: ${speed} m/s</p>
+            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${main}">
+          </div>
+        `;
+
+        // Optional background change
+        if (main === "Rain") {
+          document.body.style.background = "linear-gradient(135deg, #74ebd5, #ACB6E5)";
+        } else if (main === "Clear") {
+          document.body.style.background = "linear-gradient(135deg, #fbc2eb, #a6c1ee)";
+        } else {
+          document.body.style.background = "#f8f9fa";
+        }
+
+      } catch (error) {
+        weatherResult.innerHTML = `<p style='color:red;'>Error fetching data</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
