@@ -1,7 +1,7 @@
 // Task 2: Calculate total expense
 const expenses = [
   { category: "Food", amount: 300 },
-  { category: "Transport", amount: 150 },
+  { category: "Transport", amount: 150 }, 
   { category: "Shopping", amount: 400 },
 ];
 
