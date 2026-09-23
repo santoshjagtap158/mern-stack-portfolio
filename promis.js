@@ -5,5 +5,4 @@ const simulateFetch = new Promise((resolve, reject) => {
     else reject("Network error");
   }, 1500);
 });
-
 simulateFetch.then(msg => console.log(msg)).catch(err => console.error(err));
