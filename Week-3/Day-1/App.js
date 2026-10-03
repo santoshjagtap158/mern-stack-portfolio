@@ -5,10 +5,18 @@ import ProfileCard from "./components/ProfileCard";
 import CounterApp from "./components/CounterApp";
 import UserForm from "./components/UserForm";
 import "./App.css";
+import UserList from "./components/UserList";
+import Posts from "./components/Posts";
+import LoginForm from "./components/LoginForm";
+import Parent from "./components/Parent";
+import Navbar from "./components/Navbar";
+import BlogList from "./components/BlogList";
+import BlogFooter from "./components/BlogFooter";
 
 function App() {
   return (
     <div>
+      {/* Old section */}
       <Header />
       <main>
         <h2>Welcome to My React App!</h2>
@@ -31,12 +39,27 @@ function App() {
             image="https://randomuser.me/api/portraits/women/44.jpg"
           />
         </div>
-         <div>
-      <CounterApp />
-      <UserForm />
-    </div>
+
+        <div>
+          <CounterApp />
+          <UserForm />
+        </div>
       </main>
+
+      <UserList />
+      <Posts />
       <Footer />
+      <LoginForm />
+      <Parent />
+
+      {/* Blog section */}
+      <Navbar />
+      <main className="container">
+        <h2>Welcome to My Personal Blog</h2>
+        <p>Sharing thoughts and learning React!</p>
+        <BlogList />
+      </main>
+      <BlogFooter />
     </div>
   );
 }
