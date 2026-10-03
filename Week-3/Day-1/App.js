@@ -1,3 +1,4 @@
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Greeting from "./components/Greeting";
@@ -12,55 +13,24 @@ import Parent from "./components/Parent";
 import Navbar from "./components/Navbar";
 import BlogList from "./components/BlogList";
 import BlogFooter from "./components/BlogFooter";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
+import Blog from "./pages/Blog";
 
 function App() {
   return (
-    <div>
-      {/* Old section */}
-      <Header />
-      <main>
-        <h2>Welcome to My React App!</h2>
-        <p>This is my first modular React layout.</p>
-
-        {/* Greeting Components */}
-        <Greeting name="Priya" topic="React Components" />
-        <Greeting name="Rohan" topic="JSX & Props" />
-
-        {/* Profile Cards */}
-        <div className="card-container">
-          <ProfileCard
-            name="Arjun Kumar"
-            role="Frontend Developer"
-            image="https://randomuser.me/api/portraits/men/32.jpg"
-          />
-          <ProfileCard
-            name="Sneha Verma"
-            role="UI/UX Designer"
-            image="https://randomuser.me/api/portraits/women/44.jpg"
-          />
-        </div>
-
-        <div>
-          <CounterApp />
-          <UserForm />
-        </div>
-      </main>
-
-      <UserList />
-      <Posts />
-      <Footer />
-      <LoginForm />
-      <Parent />
-
-      {/* Blog section */}
+    <>
       <Navbar />
-      <main className="container">
-        <h2>Welcome to My Personal Blog</h2>
-        <p>Sharing thoughts and learning React!</p>
-        <BlogList />
-      </main>
-      <BlogFooter />
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/blog" element={<Blog />} />
+      </Routes>
+    </>
   );
 }
 
